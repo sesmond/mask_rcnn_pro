@@ -185,10 +185,10 @@ __C.TRAIN.DATA_SOURCE = "coco"
 __C.TRAIN.DATA_SOURCE_INFO = "our_data"
 
 __C.TRAIN.COCO_TRAIN_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/train_data.json")
-__C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/images")
+__C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/data_bill/images")
 
 __C.TRAIN.COCO_VAL_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/val_data.json")
-__C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/images")
+__C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/data_bill/images")
 
 __C.TRAIN.MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_rcnn_coco.h5")
 __C.TRAIN.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_rcnn_coco_{epoch:04d}.h5")
