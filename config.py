@@ -30,9 +30,9 @@ __C.COMMON.DEFAULT_CLASS_INFO = [{"source": "", "id": 0, "name": "BG"}]
 __C.COMMON.DATA_SET_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset")
 
 # 原始图像 文件 路径
-__C.COMMON.IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/images")
+__C.COMMON.IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/data_bill/images")
 # labelme 生成的 json 注释文件 路径
-__C.COMMON.JSON_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/ann_json")
+__C.COMMON.JSON_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/data_bill/json")
 
 # 是否删除已有文件，True 为删除，False 为不删除
 __C.COMMON.FILE_EXISTS_FLAG = True
