@@ -30,9 +30,10 @@ __C.COMMON.DEFAULT_CLASS_INFO = [{"source": "", "id": 0, "name": "BG"}]
 __C.COMMON.DATA_SET_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset")
 
 # 原始图像 文件 路径
-__C.COMMON.IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/data_bill/images")
+# __C.COMMON.IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/data_bill/images")
+__C.COMMON.IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/zx_table/images")
 # labelme 生成的 json 注释文件 路径
-__C.COMMON.JSON_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/data_bill/json")
+__C.COMMON.JSON_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/zx_table/json")
 
 # 是否删除已有文件，True 为删除，False 为不删除
 __C.COMMON.FILE_EXISTS_FLAG = True
@@ -186,10 +187,11 @@ __C.TRAIN.DATA_SOURCE = "coco"
 __C.TRAIN.DATA_SOURCE_INFO = "our_data"
 
 __C.TRAIN.COCO_TRAIN_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/train_data.json")
-__C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/data_bill/images")
+#TODO 训练路径
+__C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/zx_table/images")
 
 __C.TRAIN.COCO_VAL_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/val_data.json")
-__C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/data_bill/images")
+__C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/zx_table/images")
 
 __C.TRAIN.MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_rcnn_coco.h5")
 __C.TRAIN.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_rcnn_coco_{epoch:04d}.h5")
@@ -297,12 +299,12 @@ __C.TRAIN.ANCHORS_PER_IMAGE = 256
 __C.TEST = edict()
 
 # model 文件路径
-__C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_rcnn_coco_0001.h5")
+__C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_rcnn_coco_1058.h5")
 __C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models")
 __C.TEST.TEST_INFO_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/test.txt")
 
-__C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/test_image")
-__C.TEST.OUTPUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "output_info/images")
+__C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/test_bill/input/")
+__C.TEST.OUTPUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/test_bill/output/")
 
 __C.TEST.POST_NMS_ROIS = 1000
 
