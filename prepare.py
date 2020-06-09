@@ -28,35 +28,42 @@
                     "id"表示此instance标注信息在所有instance标注信息中的id。
 """
 
-
 from datetime import datetime
 import os
 import json
 import random
 import numpy as np
-from config import cfg
+# from config import cfg
+import glob
 
 
 class Prepare(object):
 
-    def __init__(self):
+    def __init__(self, img_path, json_path):
 
-        self.label_me_json_file_path = "./dataset/ann_json"
-        self.ori_image_file_path = "./dataset/images"
+        # self.label_me_json_file_path = "./dataset/data_bill/json"
+        # self.ori_image_file_path = "./dataset/data_bill/images"
+
+        self.label_me_json_file_path = json_path
+        self.ori_image_file_path = img_path
+
         self.save_data_path = "./infos"
-
+        # TODO 这是干啥的？？
         self.cate_and_super = self.load_json_data("./infos/cate_and_super.json")
         # 默认 BG 为背景 class name
         self.class_name_list = self.load_txt_data("./infos/our_class_names.txt")
 
         # 数据的百分比
-        self.test_percent = cfg.COMMON.TEST_PERCENT
-        self.val_percent = cfg.COMMON.VAL_PERCENT
+        # 测试集比例
+        self.test_percent = 0.0
+        # 验证集比例
+        self.val_percent = 0.2
 
         # 各成分数据保存路径
-        self.train_data_path = cfg.COMMON.TRAIN_DATA_PATH
-        self.val_data_path = cfg.COMMON.VAL_DATA_PATH
-        self.test_data_path = cfg.COMMON.TEST_DATA_PATH
+        # 输出文件
+        self.train_data_path = "infos/train_data.txt"
+        self.val_data_path = "infos/val_data.txt"
+        self.test_data_path = "infos/test_data.txt"
 
         self.train_image_name_list = []
         self.val_image_name_list = []
@@ -75,6 +82,24 @@ class Prepare(object):
         self.ann_id = 0
 
         pass
+
+    def get_images(self, data_path):
+        '''
+        find image files in test data path
+        :return: list of files found
+        '''
+        exts = ['jpg', 'png', 'jpeg', 'JPG']
+        return self.get_files(data_path, exts)
+
+    def get_files(self, data_path, exts):
+        files = []
+        for parent, dirnames, filenames in os.walk(data_path):
+            for filename in filenames:
+                for ext in exts:
+                    if filename.endswith(ext):
+                        files.append(os.path.join(parent, filename))
+                        break
+        return files
 
     def load_txt_data(self, file_path):
         with open(file_path, encoding="utf-8") as file:
@@ -96,7 +121,9 @@ class Prepare(object):
         :return:
         """
         # 原始图像名字的 list
-        image_name_list = os.listdir(self.ori_image_file_path)
+        # image_name_list = glob.glob(os.path.join(self.ori_image_file_path, '*'))
+        image_name_list = self.get_images(self.ori_image_file_path)
+        # os.listdir(self.ori_image_file_path)
         # 统计有多少张图像
         image_number = len(image_name_list)
 
@@ -127,23 +154,24 @@ class Prepare(object):
         test_file = open(self.test_data_path, "w")
 
         for image_name in image_name_list:
+            base_name = os.path.basename(image_name)
             if image_name in train_val_list:
                 if image_name in train_list:
                     # 将训练的数据名称放到 list 中，不用再次去读写。
-                    self.train_image_name_list.append(image_name)
+                    self.train_image_name_list.append(base_name)
                     # 将训练数据保存下来，可以用来参考，后续代码中不用到这个文件
-                    train_file.write(image_name + "\n")
+                    train_file.write(base_name + "\n")
                     pass
                 else:
                     # 将验证的数据名称放到 list 中，不用再次去读写。
-                    self.val_image_name_list.append(image_name)
+                    self.val_image_name_list.append(base_name)
                     # 将验证数据保存下来，可以用来参考，后续代码中不用到这个文件
-                    val_file.write(image_name + "\n")
+                    val_file.write(base_name + "\n")
                     pass
                 pass
             else:
                 # 测试图像，这个可以在 mask_test.py 文件中用于 test
-                test_file.write(image_name + "\n")
+                test_file.write(base_name + "\n")
                 pass
             pass
 
@@ -190,8 +218,9 @@ class Prepare(object):
 
         # 将划分的训练数据做成 coco 数据
         for train_image_name in self.train_image_name_list:
-            name_info = train_image_name.split(".")[0]
-
+            # name_info = train_image_name.split(".")[0]
+            base_name = os.path.basename(train_image_name)
+            name_info = os.path.splitext(base_name)[0]
             ann_json_name = name_info + ".json"
             ann_json_path = os.path.join(self.label_me_json_file_path, ann_json_name)
             json_data = self.load_json_data(ann_json_path)
@@ -235,7 +264,7 @@ class Prepare(object):
 
         image_info.update({"height": height})
         image_info.update({"width": width})
-        image_info.update({"id": int(name_info)})
+        image_info.update({"id": str(name_info)})
         image_info.update({"file_name": train_image_name})
         self.images.append(image_info)
         pass
@@ -247,11 +276,14 @@ class Prepare(object):
             annotation = {}
 
             label = shape_info["label"]
+            # label = "table"
             points = shape_info["points"]
+            # TODO
             category_id = self.class_name_list.index(label)
 
             annotation.update({"id": self.ann_id})
-            annotation.update({"image_id": int(name_info)})
+            # TODO
+            annotation.update({"image_id": str(name_info)})
             annotation.update({"category_id": category_id})
             segmentation = [np.asarray(points).flatten().tolist()]
             annotation.update({"segmentation": segmentation})
@@ -287,13 +319,12 @@ if __name__ == "__main__":
     # 代码开始时间
     start_time = datetime.now()
     print("开始时间: {}".format(start_time))
-
-    demo = Prepare()
+    # TODO 坐标拆分
+    data_path = "data/labelme_split"
+    demo = Prepare(data_path, data_path)
     demo.do_data_2_coco()
 
     # 代码结束时间
     end_time = datetime.now()
     print("结束时间: {}, 训练模型耗时: {}".format(end_time, end_time - start_time))
     pass
-
-
