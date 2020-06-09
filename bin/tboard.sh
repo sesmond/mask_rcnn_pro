@@ -13,6 +13,7 @@ fi
 gpu=3
 
 log_path=logs/
-echo "启动 $1 的tensorboard日志...."
+port=$1
+echo "启动 tensorboard日志...."
 echo "端口：$port，日志路径：$log_path"
 CUDA_VISIBLE_DEVICES=$gpu nohup /root/py3/bin/tensorboard --port=$port --logdir=$log_path >./tboard.log 2>&1 &
