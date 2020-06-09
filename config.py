@@ -29,11 +29,6 @@ __C.COMMON.DEFAULT_CLASS_INFO = [{"source": "", "id": 0, "name": "BG"}]
 
 __C.COMMON.DATA_SET_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset")
 
-# 原始图像 文件 路径
-# __C.COMMON.IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/data_bill/images")
-__C.COMMON.IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/zx_table/images")
-# labelme 生成的 json 注释文件 路径
-__C.COMMON.JSON_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/zx_table/json")
 
 # 是否删除已有文件，True 为删除，False 为不删除
 __C.COMMON.FILE_EXISTS_FLAG = True
@@ -188,10 +183,10 @@ __C.TRAIN.DATA_SOURCE_INFO = "our_data"
 
 __C.TRAIN.COCO_TRAIN_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/train_data.json")
 #TODO 训练路径
-__C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/zx_table/images")
+__C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/zx_table/labelme_split")
 
 __C.TRAIN.COCO_VAL_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/val_data.json")
-__C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/zx_table/images")
+__C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/zx_table/labelme_split")
 
 __C.TRAIN.MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_rcnn_coco.h5")
 #TODO 做成动态
