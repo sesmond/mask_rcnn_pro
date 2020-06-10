@@ -242,6 +242,7 @@ class MaskRCNN(object):
             # TODO: clean up (use tf.identify if necessary)
             output_rois = kl.Lambda(lambda x: x * 1, name="output_rois")(rois)
 
+            #TODO loss 定义
             # Losses
             rpn_class_loss = kl.Lambda(lambda x: common.rpn_class_loss_graph(*x), name="rpn_class_loss")(
                 [input_rpn_match, rpn_class_logits])
@@ -345,6 +346,7 @@ class MaskRCNN(object):
             layers = filter(lambda l: l.name not in exclude, layers)
 
         if by_name:
+            # TODO ! 测试这里出错
             saving.load_weights_from_hdf5_group_by_name(model_file, layers)
         else:
             saving.load_weights_from_hdf5_group(model_file, layers)
@@ -618,10 +620,40 @@ class MaskRCNN(object):
             print("image_metas_list: ", image_metas_list)
             print("anchors: ", anchors)
             pass
-
+        # TODO 模型输入输出 3个输入 1个输出
         # Run object detection
+
         detections, _, _, mrcnn_mask, _, _, _ = \
             self.keras_model.predict([molded_images_list, image_metas_list, anchors], verbose=0)
+
+        # from utils import model_utils
+        # input_dic = {
+        #     'input_1': 'input_1',
+        #     'input_2': 'input_2',
+        #     'input_3': 'input_3'
+        # }
+        # output_dic = {
+        #     'output_1': 'output_1',
+        #     'output_2': 'output_2',
+        #     'output_3': 'output_3',
+        #     'output_4': 'output_4',
+        #     'output_5': 'output_5',
+        #     'output_6': 'output_6',
+        #     'output_7': 'output_7'
+        # }
+        # params = model_utils.restore_model("models/100000/", input_dic, output_dic)
+        # session = params["session"]
+        # g = params["graph"]
+        # with g.as_default():
+        #     # logger.debug("通过session预测：%r",img.shape)
+        #     detections, _, _, mrcnn_mask, _, _, _ = \
+        #         session.run([params['output_1'], params['output_2'], params['output_3'], params['output_4'],
+        #                     params['output_5'], params['output_6'], params['output_7']],
+        #                     feed_dict={params['input_1']: molded_images_list,
+        #                                params['input_2']: image_metas_list,
+        #                                params['input_3']: anchors,
+        #                                })
+        print("")
         # Process detections
         results_list = []
         for i, image_info in enumerate(images_info_list):

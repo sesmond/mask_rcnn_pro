@@ -141,10 +141,11 @@ class MaskTrain(object):
         if not os.path.exists(self.log_path):
             os.makedirs(self.log_path)
             pass
-
+        #TODO tensorboard 目录，以及模型保存
         # Callbacks
+        # TODO write_images 改成True
         callbacks = [keras.callbacks.TensorBoard(log_dir=self.log_path, histogram_freq=0,
-                                                 write_graph=True, write_images=False),
+                                                 write_graph=True, write_images=True),
                      keras.callbacks.ModelCheckpoint(self.model_save_path, verbose=0,
                                                      save_weights_only=True)]
 
@@ -152,7 +153,7 @@ class MaskTrain(object):
         if custom_callbacks:
             callbacks += custom_callbacks
             pass
-
+        #TODO 训练集批次，验证集批次。 用一张图不太好，修改一下
         # Data generators
         train_generator = self.data_generator(train_data,
                                               augmentation=augmentation,

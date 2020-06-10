@@ -207,6 +207,7 @@ __C.TRAIN.MAX_GT_INSTANCES = 100
 # To change this you also need to change the neural network mask branch
 __C.TRAIN.MASK_SHAPE = [28, 28]
 
+#TODO !!!! batchsize=1???
 # train batch size
 __C.TRAIN.BATCH_SIZE = 1
 
