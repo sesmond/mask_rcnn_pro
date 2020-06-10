@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-weight_path=models/zx_table/mask_rcnn_coco_1001.h5
+weight_path=models/zx_table/mask_rcnn_coco_0079.h5
 output_path=models/pb_zx_table
 
 echo "要转换的模型："  $weight_path
