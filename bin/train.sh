@@ -7,6 +7,10 @@ if [ ! -d "$log_dir" ]; then
         mkdir $log_dir
 fi
 
+if [ "$1" == "console" ];then
+   python -m mask_train
+exit
+fi
 nohup \
 python -m mask_train \
 >> ./logs/console_$Date.log 2>&1 &
