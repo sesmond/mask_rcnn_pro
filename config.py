@@ -184,14 +184,14 @@ __C.TRAIN.DATA_SOURCE_INFO = "our_data"
 
 __C.TRAIN.COCO_TRAIN_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/train_data.json")
 #TODO 训练路径
-__C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/zx_table/labelme_split")
+__C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/labelme_split")
 
 __C.TRAIN.COCO_VAL_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/val_data.json")
-__C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/zx_table/labelme_split")
+__C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/labelme_split")
 
 __C.TRAIN.MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_rcnn_coco.h5")
 #TODO 做成动态
-__C.TRAIN.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/zx_table/mask_rcnn_coco_{epoch:04d}.h5")
+__C.TRAIN.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/idcard/mask_rcnn_coco_{epoch:04d}.h5")
 __C.TRAIN.LOGS_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "logs")
 
 # If enabled, resizes instance masks to a smaller size to reduce
@@ -298,7 +298,7 @@ __C.TEST = edict()
 
 # model 文件路径
 __C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_rcnn_coco_1058.h5")
-__C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/zx_table/")
+__C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/idcard/")
 __C.TEST.TEST_INFO_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/test.txt")
 
 __C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "dataset/test_bill/input/")
