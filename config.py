@@ -301,8 +301,8 @@ __C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_r
 __C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/idcard/")
 __C.TEST.TEST_INFO_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/test.txt")
 
-__C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/test/")
-__C.TEST.OUTPUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/pre/")
+__C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/test/input")
+__C.TEST.OUTPUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/test/output")
 
 __C.TEST.POST_NMS_ROIS = 1000
 
