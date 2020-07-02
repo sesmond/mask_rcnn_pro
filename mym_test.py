@@ -65,26 +65,24 @@ class MaskTest(object):
                         break
         return files
 
-    def do_test(self, show_image_flag=False):
+    def do_test(self,image_path):
         """
             batch predict
         :param show_image_flag: show images or not
         :return:
         """
-        test_image_name_list = self.get_images(self.test_image_file_path)
+        test_image_name_list = self.get_images(image_path)
 
         for test_image_path in test_image_name_list:
             test_image_name = os.path.basename(test_image_path)
-            # test_image_path = os.path.join(self.test_image_file_path, test_image_name)
-            # 读取图像
-            # image_info = skimage.io.imread(test_image_path)
             image_info = cv2.imread(test_image_path)
             print("read img:",test_image_path)
             # Run detection
             results_info_list = self.mask_model.detect([image_info])
             print("results: {}".format(results_info_list))
 
-        return results_info_list,image_info,test_image_name
+        return results_info_list, image_info, test_image_name
+        pass
 
 
     def cut_rectangle(self):
@@ -92,7 +90,7 @@ class MaskTest(object):
         抠出外接矩形
         :return:
         '''
-        results_info_list, image_info, test_image_name = self.do_test()
+        results_info_list, image_info, test_image_name = self.do_test(self.test_image_file_path)
 
         box = results_info_list[0]['rois']
         mask = results_info_list[0]['masks']
@@ -106,7 +104,8 @@ class MaskTest(object):
         cut_img_path = "data/idcard/test/cut/"
         cv2.imwrite(os.path.join(cut_img_path + test_image_name), cut_img)
 
-        return cut_img
+        pass
+
 
 
 
@@ -116,8 +115,6 @@ if __name__ == "__main__":
     print("开始时间: {}".format(start_time))
 
     demo = MaskTest()
-    # print(demo.class_names_list)
-    #demo.do_test()
     demo.cut_rectangle()
 
     # 代码结束时间
