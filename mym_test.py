@@ -84,8 +84,29 @@ class MaskTest(object):
             results_info_list = self.mask_model.detect([image_info])
             print("results: {}".format(results_info_list))
 
-        pass
+        return results_info_list,image_info,test_image_name
 
+
+    def cut_rectangle(self):
+        '''
+        抠出外接矩形
+        :return:
+        '''
+        results_info_list, image_info, test_image_name = self.do_test()
+
+        box = results_info_list[0]['rois']
+        mask = results_info_list[0]['masks']
+        ymin = box[0][0]
+        xmin = box[0][1]
+        ymax = box[0][2]
+        xmax = box[0][3]
+        w = xmax - xmin
+        h = ymax - ymin
+        cut_img = image_info[ymin:ymin+h,xmin:xmin+w]
+        cut_img_path = "data/idcard/test/cut/"
+        cv2.imwrite(os.path.join(cut_img_path + test_image_name), cut_img)
+
+        return cut_img
 
 
 
@@ -96,7 +117,8 @@ if __name__ == "__main__":
 
     demo = MaskTest()
     # print(demo.class_names_list)
-    demo.do_test()
+    #demo.do_test()
+    demo.cut_rectangle()
 
     # 代码结束时间
     end_time = datetime.now()
