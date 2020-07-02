@@ -46,6 +46,8 @@ def mask_result(test_image_file_path):
     return results_info_list, image_info, test_image_name
 
 
+
+
 def result_analysis(test_image_file_path,cut_img_path):
     results,image,test_image_name = mask_result(test_image_file_path)
 
