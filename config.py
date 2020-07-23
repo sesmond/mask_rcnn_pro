@@ -100,7 +100,7 @@ else:
 # 1 background + n classes
 # __C.COMMON.CLASS_NUM = 1 + 80
 #TODO 分类个数应该做成动态的 配了多少个就多少个!!!!
-__C.COMMON.CLASS_NUM = 1 + 2
+__C.COMMON.CLASS_NUM = 1 + 3
 
 # image_id(1维) + original_image_shape(3维) + image_shape(3维) + image_coor(y1, x1, y2, x2)(4维) +
 # scale(1维) + class_num(类别数)
@@ -184,14 +184,14 @@ __C.TRAIN.DATA_SOURCE_INFO = "our_data"
 
 __C.TRAIN.COCO_TRAIN_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/train_data.json")
 #TODO 训练路径
-__C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/labelme_split")
+__C.TRAIN.COCO_TRAIN_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/djz/labelme_split")
 
 __C.TRAIN.COCO_VAL_ANN_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/val_data.json")
-__C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/labelme_split")
+__C.TRAIN.COCO_VAL_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/djz/labelme_split")
 
 __C.TRAIN.MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/mask_rcnn_coco.h5")
 #TODO 做成动态
-__C.TRAIN.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/idcard/mask_rcnn_coco_{epoch:04d}.h5")
+__C.TRAIN.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/djz/mask_rcnn_coco_{epoch:04d}.h5")
 __C.TRAIN.LOGS_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "logs")
 
 # If enabled, resizes instance masks to a smaller size to reduce
@@ -297,12 +297,13 @@ __C.TRAIN.ANCHORS_PER_IMAGE = 256
 __C.TEST = edict()
 
 # model 文件路径
-__C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/idcard/mask_rcnn_coco_0076.h5")
-__C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/idcard/")
+__C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/djz/mask_rcnn_coco_0076.h5")
+__C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/djz/")
 __C.TEST.TEST_INFO_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/test.txt")
 
-__C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/test/input")
-__C.TEST.OUTPUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/idcard/test/output")
+__C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/djz/test/input")
+__C.TEST.OUTPUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/djz/test/output")
+__C.TEST.CUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/djz/test/cut")
 
 __C.TEST.POST_NMS_ROIS = 1000
 
