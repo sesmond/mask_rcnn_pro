@@ -164,7 +164,7 @@ __C.COMMON.MASK_POOL_SIZE = 14
 __C.COMMON.FPN_CLASS_FC_LAYERS_SIZE = 1024
 
 # NUMBER OF GPUs to use. When using only a CPU, this needs to be set to 1.
-__C.COMMON.GPU_COUNT = 1
+__C.COMMON.GPU_COUNT = 0
 
 # Loss weights for more precise optimization.
 # Can be used for R-CNN training setup.
