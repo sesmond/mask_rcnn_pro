@@ -19,7 +19,7 @@ from matplotlib.patches import Polygon
 from skimage.measure import find_contours
 from config import cfg
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 class MaskTest(object):
 
