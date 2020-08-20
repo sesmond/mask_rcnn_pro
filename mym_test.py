@@ -102,6 +102,10 @@ class MaskTest(object):
                 prediction = {'shapes': result}
                 print(prediction)
 
+                cv2.polylines(image_info, [approx], True, (0, 255, 0), 10)
+            image_path = os.path.join("data/djz/debug/" + test_image_name[:-4] + ".jpg")
+            cv2.imwrite(image_path,image_info)
+
             prediction_path = os.path.join("data/djz/prediction/" + test_image_name[:-4] + ".json")
             # json_str = json.dumps(prediction,cls=MyEncoder)
             # with open(prediction_path, 'w') as json_file:
