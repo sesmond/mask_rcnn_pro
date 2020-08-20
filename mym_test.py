@@ -102,7 +102,7 @@ class MaskTest(object):
                 prediction = {'shapes': result}
                 print(prediction)
 
-                image = cv2.imread(os.path.join("data/djz/test/output/" + test_image_name))
+                image = cv2.imread(os.path.join(self.output_image_path + test_image_name))
                 cv2.polylines(image, [approx], True, (0, 255, 0), 5)
             image_path = os.path.join("data/djz/debug/" + test_image_name)
             cv2.imwrite(image_path,image_info)
