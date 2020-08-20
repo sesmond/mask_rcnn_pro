@@ -81,6 +81,9 @@ class MaskTest(object):
             test_image_name = os.path.basename(test_image_path)
             image_info = cv2.imread(test_image_path)
             print("read img:",test_image_path)
+
+            image = cv2.imread(os.path.join(self.output_image_path + test_image_name))
+
             # Run detection
             results_info_list = self.mask_model.detect([image_info])
             print("results: {}".format(results_info_list))
@@ -102,10 +105,9 @@ class MaskTest(object):
                 prediction = {'shapes': result}
                 print(prediction)
 
-                image = cv2.imread(os.path.join(self.output_image_path + test_image_name))
                 cv2.polylines(image, [approx], True, (0, 255, 0), 5)
             image_path = os.path.join("data/djz/debug/" + test_image_name)
-            cv2.imwrite(image_path,image_info)
+            cv2.imwrite(image_path,image)
 
             prediction_path = os.path.join("data/djz/prediction/" + test_image_name[:-4] + ".json")
             # json_str = json.dumps(prediction,cls=MyEncoder)
