@@ -52,16 +52,14 @@ def calculate_iou(image, original_bboxes, prediction_bboxes):
     return IOU
 
 
-def read_bbox(file,bbox_path):
-    bbox_json_path = os.path.join(bbox_path + file[:-4] + ".json")
+def read_bbox(filename,bbox_path):
+    bbox_json_path = os.path.join(bbox_path + filename + ".json")
     with open(bbox_json_path, "r") as f:
         json_data = json.load(f)
         bboxes = []
         for category in json_data['shapes']:
-            labels = category['labels']
             bbox = category['points']
             bboxes.append(bbox)
-    print("标签已加载")
 
     return bboxes
 
@@ -69,43 +67,39 @@ def read_bbox(file,bbox_path):
 def calculate_acc(test_path, original_path, prediction_path):
     files = os.listdir(test_path)
     total = 0
+    correct = 0
     for file in files:
         filename, ext = os.path.splitext(file)
         if ext != ".jpg":continue
         else:
             img_path = os.path.join(test_path,file)
-            print(img_path)
-            original_path = os.path.join(original_path + file[:-4] + ".json")
             img = cv2.imread(img_path)
             print(img.shape)
+            original_bboxes = read_bbox(filename, original_path)
+            prediction_bboxes = read_bbox(filename, prediction_path)
 
-            original_bboxes = read_bbox(file, original_path)
-            prediction_bboxes = read_bbox(file, prediction_path)
-
-            i = 0
-            correct = 0
             for original_bbox in original_bboxes:
-                i += 1
                 total +=1
                 for prediction_bbox in prediction_bboxes:
                     IOU = calculate_iou(img, original_bbox, prediction_bbox)
-                    if IOU >= 0.95:
+                    if IOU >= 0.90:
                         correct +=1
                     accuracy = correct/total
 
-            print("预测的总的区域个数:", total)
-            print("预测>=0.95的区域个数:",correct)
-            print("预测的正确率:",accuracy)
-
-    return correct
+        print("预测的总的区域个数:", total)
+        print("预测区域和打标区域的面积iou>=0.90的区域个数:",correct)
+        print("预测的正确率:",accuracy)
 
 
-
-
-
-test_path = "data/djz/test/input/"
-original_path = "data/djz/original/"
-prediction_path = "data/djz/prediction/"
 
 if __name__ == "__main__":
+    test_path = "data/djz/test/input/"
+    original_path = "data/djz/original/"
+    prediction_path = "data/djz/prediction/"
+
+    # 测试
+    # test_path = "/Users/yanmeima/Desktop/djz_test/input/"
+    # original_path = "/Users/yanmeima/Desktop/djz_test/original/"
+    # prediction_path = "/Users/yanmeima/Desktop/djz_test/prediction/"
+
     calculate_acc(test_path, original_path, prediction_path)

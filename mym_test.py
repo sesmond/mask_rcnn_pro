@@ -16,7 +16,7 @@ from m_rcnn.mask_rcnn import MaskRCNN
 from config import cfg
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
-logger = logging.getLogger("登记证图片识别 -- 模板匹配 + local(crnn)")
+logger = logging.getLogger("登记证图片识别 -- maskrcnn预测")
 
 def init_logger():
     logging.basicConfig(
@@ -131,9 +131,21 @@ class MaskTest(object):
         binary = binary.astype(np.uint8)
         im2, contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         cnt = contours[0]
+
+        # todo ：尝试下凸包
+        # 寻找凸包并绘制凸包（轮廓）
+        hull = cv2.convexHull(cnt)
+        print(hull)
+        length = len(hull)
+        for i in range(len(hull)):
+            cv2.line(binary, tuple(hull[i][0]), tuple(hull[(i + 1) % length][0]), (0, 255, 0), 10)
+        cv2.imwrite("data/djz/test1.jpg", binary)
+
         epsilon = 0.05 * cv2.arcLength(cnt, True)
         approx = cv2.approxPolyDP(cnt, epsilon, True)
         #logger.info("近似四边形的四点坐标:%s", approx)
+
+        cv2.imwrite("data/djz/test2.jpg", binary)
 
         if len(approx) < 4:
             epsilon = 0.005 * cv2.arcLength(cnt, True)
@@ -145,10 +157,33 @@ class MaskTest(object):
             logger.info("多于四点调整后，近似四边形的四点坐标:%s", approx)
 
         cv2.polylines(binary, [approx], True, (0, 255, 0), 10)
-        cv2.imwrite("data/djz/test1.jpg", binary)
+        #cv2.imwrite("data/djz/test1.jpg", binary)
 
         return approx
         pass
+
+
+    # def cut_rectangle(self):
+    #     '''
+    #     抠出外接矩形
+    #     :return:
+    #     '''
+    #     results_info_list, image_info, test_image_name = self.do_test(self.test_image_file_path)
+    #
+    #     box = results_info_list[0]['rois']
+    #     mask = results_info_list[0]['masks']
+    #     ymin = box[0][0]
+    #     xmin = box[0][1]
+    #     ymax = box[0][2]
+    #     xmax = box[0][3]
+    #     w = xmax - xmin
+    #     h = ymax - ymin
+    #     cut_img = image_info[ymin:ymin+h,xmin:xmin+w]
+    #     cut_img_path = "data/idcard/test/cut/"
+    #     cv2.imwrite(os.path.join(cut_img_path + test_image_name), cut_img)
+    #
+    #     pass
+    #
 
     @staticmethod
     def format_convert(approx):
