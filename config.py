@@ -100,7 +100,7 @@ else:
 # 1 background + n classes
 # __C.COMMON.CLASS_NUM = 1 + 80
 #TODO 分类个数应该做成动态的 配了多少个就多少个!!!!
-__C.COMMON.CLASS_NUM = 1 + 3
+__C.COMMON.CLASS_NUM = 1 + 1
 
 # image_id(1维) + original_image_shape(3维) + image_shape(3维) + image_coor(y1, x1, y2, x2)(4维) +
 # scale(1维) + class_num(类别数)
