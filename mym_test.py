@@ -96,16 +96,16 @@ class MaskTest(object):
 
             result = []
             for i in range(mask_cnt):
-                approx = self.cut_approx_quadrang(i, masks)
-                point = self.format_convert(approx)
+                approx, hull = self.cut_approx_quadrang(i, masks)
+                point = self.format_convert(hull)
                 class_points = {
                     "labels": CLASS_NAME[class_ids[i]-1],
                     "points": point}
                 result.append(class_points)
                 prediction = {'shapes': result}
-                print(prediction)
+                #print(prediction)
 
-                cv2.polylines(image_info, [approx], True, (0, 255, 0), 5)
+                cv2.polylines(image_info, [hull], True, (0, 255, 0), 5)
             image_path = os.path.join("data/djz/debug/" + test_image_name)
             cv2.imwrite(image_path,image_info)
 
@@ -135,7 +135,7 @@ class MaskTest(object):
         # todo ：尝试下凸包
         # 寻找凸包并绘制凸包（轮廓）
         hull = cv2.convexHull(cnt)
-        print(hull)
+        print("hull:", hull)
         length = len(hull)
         for i in range(len(hull)):
             cv2.line(binary, tuple(hull[i][0]), tuple(hull[(i + 1) % length][0]), (0, 255, 0), 10)
@@ -159,7 +159,7 @@ class MaskTest(object):
         cv2.polylines(binary, [approx], True, (0, 255, 0), 10)
         #cv2.imwrite("data/djz/test1.jpg", binary)
 
-        return approx
+        return approx, hull
         pass
 
 
