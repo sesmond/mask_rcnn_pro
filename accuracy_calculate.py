@@ -82,7 +82,7 @@ def calculate_acc(test_path, original_path, prediction_path):
                 total +=1
                 for prediction_bbox in prediction_bboxes:
                     IOU = calculate_iou(img, original_bbox, prediction_bbox)
-                    if IOU >= 0.95:
+                    if IOU >= 0.90:
                         correct +=1
                     accuracy = correct/total
 
