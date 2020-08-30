@@ -100,7 +100,7 @@ else:
 # 1 background + n classes
 # __C.COMMON.CLASS_NUM = 1 + 80
 #TODO 分类个数应该做成动态的 配了多少个就多少个!!!!
-__C.COMMON.CLASS_NUM = 1 + 1
+__C.COMMON.CLASS_NUM = 1 + 3
 
 # image_id(1维) + original_image_shape(3维) + image_shape(3维) + image_coor(y1, x1, y2, x2)(4维) +
 # scale(1维) + class_num(类别数)
@@ -297,7 +297,7 @@ __C.TRAIN.ANCHORS_PER_IMAGE = 256
 __C.TEST = edict()
 
 # model 文件路径(121\178)
-__C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/djz/mask_rcnn_coco_0178.h5")
+__C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/djz/mask_rcnn_coco_0121.h5")
 __C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/djz/")
 __C.TEST.TEST_INFO_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/test.txt")
 

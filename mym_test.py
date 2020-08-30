@@ -135,7 +135,7 @@ class MaskTest(object):
         # todo ：尝试下凸包
         # 寻找凸包并绘制凸包（轮廓）
         hull = cv2.convexHull(cnt)
-        print("hull:", hull)
+        #print("hull:", hull)
         length = len(hull)
         for i in range(len(hull)):
             cv2.line(binary, tuple(hull[i][0]), tuple(hull[(i + 1) % length][0]), (0, 255, 0), 10)
