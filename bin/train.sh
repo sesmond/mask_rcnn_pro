@@ -1,5 +1,6 @@
 # 训练数据
 Date=$(date +%Y%m%d%H%M)
+export CUDA_VISIBLE_DEVICES=0
 
 log_dir="logs"
 
