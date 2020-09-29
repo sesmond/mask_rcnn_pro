@@ -1,2 +1,4 @@
 BG
-id-1
+djz-1-1
+djz-1-2
+djz-2
