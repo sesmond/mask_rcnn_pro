@@ -94,12 +94,7 @@ def calculate_acc(test_path, original_path, prediction_path):
 
 if __name__ == "__main__":
     test_path = "data/djz/test/input/"
-    original_path = "data/djz/original/"
-    prediction_path = "data/djz/prediction/"
-
-    # 测试
-    # test_path = "/Users/yanmeima/Desktop/djz_test/input/"
-    # original_path = "/Users/yanmeima/Desktop/djz_test/original/"
-    # prediction_path = "/Users/yanmeima/Desktop/djz_test/prediction/"
+    original_path = "data/djz/test/original/"
+    prediction_path = "data/djz/test/prediction/"
 
     calculate_acc(test_path, original_path, prediction_path)
