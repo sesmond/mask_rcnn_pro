@@ -304,6 +304,8 @@ __C.TEST.TEST_INFO_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/test.txt
 __C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/djz/test/input")
 __C.TEST.OUTPUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/djz/test/output")
 __C.TEST.CUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/djz/test/cut")
+__C.TEST.DEBUG_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/djz/test/debug/")
+__C.TEST.PREDICTION_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/djz/test/prediction/")
 
 __C.TEST.POST_NMS_ROIS = 1000
 

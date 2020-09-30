@@ -38,6 +38,8 @@ class MaskTest(object):
         self.test_image_file_path = cfg.TEST.TEST_IMAGE_FILE_PATH
         self.output_image_path = cfg.TEST.OUTPUT_IMAGE_PATH
         self.cut_image_path = cfg.TEST.CUT_IMAGE_PATH
+        self.debug_image_path = cfg.TEST.DEBUG_IMAGE_PATH
+        self.prediction_image_path = cfg.TEST.PREDICTION_IMAGE_PATH
 
         # 加载网络模型
         self.mask_model = MaskRCNN(train_flag=False)
@@ -123,10 +125,10 @@ class MaskTest(object):
                 cv2.polylines(image_info, [box], True, (0, 255, 255), 3)  # 面积最小的外接矩形框box
                 cv2.polylines(image_info, [approx], True, (255, 255, 0), 3)  # 近似四边形
                 cv2.polylines(image_info, [hull], True, (0, 255, 0), 3)  # 凸包
-            image_path = os.path.join("data/djz/test/debug/" + test_image_name)
+            image_path = os.path.join(self.debug_image_path + test_image_name)
             cv2.imwrite(image_path, image_info)
 
-            prediction_path = os.path.join("data/djz/test/prediction/" + test_image_name[:-4] + ".json")
+            prediction_path = os.path.join(self.prediction_image_path + test_image_name[:-4] + ".json")
             with open(prediction_path, "w", encoding='utf-8') as g:
                 json.dump(prediction, g, indent=2, sort_keys=True, ensure_ascii=False)
         pass
