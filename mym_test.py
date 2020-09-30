@@ -81,8 +81,7 @@ class MaskTest(object):
             test_image_name = os.path.basename(test_image_path)
             image_info = cv2.imread(test_image_path)
             print("read img:",test_image_path)
-
-            #image = cv2.imread(os.path.join(self.output_image_path + test_image_name))
+            h, w, _ = image_info.shape
 
             # Run detection
             results_info_list = self.mask_model.detect([image_info])
@@ -92,37 +91,60 @@ class MaskTest(object):
             class_ids = results_info_list[0]['class_ids']
             masks = results_info_list[0]['masks']
             mask_cnt = masks.shape[-1]
-            CLASS_NAME = ['djz-1-1','djz-1-2','djz-2']
+            CLASS_NAME = self.class_names_list[1:]
 
             result = []
             for i in range(mask_cnt):
-                approx, hull = self.cut_approx_quadrang(i, masks)
+                approx, hull, cut_img = self.cut_approx_quadrang(i, masks, rois, image_info)
                 point = self.format_convert(hull)
+
                 class_points = {
-                    "labels": CLASS_NAME[class_ids[i]-1],
-                    "points": point}
+                    "labels": CLASS_NAME[class_ids[i] - 1],
+                    "points": point,
+                    "group_id": " ",
+                    "shape_type": "polygon",
+                    "flags": {}
+                }
                 result.append(class_points)
-                prediction = {'shapes': result}
-                #print(prediction)
+                prediction = {"version": "3.16.7",
+                              "flags": {},
+                              'shapes': result,
+                              "imagePath": test_image_name,
+                              "imageData": self.nparray2base64(image_info),
+                              "imageHeight": h,
+                              "imageWidth": w
+                              }
 
-                cv2.polylines(image_info, [hull], True, (0, 255, 0), 5)
-            image_path = os.path.join("data/djz/debug/" + test_image_name)
-            cv2.imwrite(image_path,image_info)
+                rect = cv2.minAreaRect(np.array(hull))  # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
+                box = cv2.boxPoints(rect)  # 获取最小外接矩形的4个顶点坐标(ps: cv2.boxPoints(rect) for OpenCV 3.x)
+                box = np.int0(box)
 
-            prediction_path = os.path.join("data/djz/prediction/" + test_image_name[:-4] + ".json")
-            # json_str = json.dumps(prediction,cls=MyEncoder)
-            # with open(prediction_path, 'w') as json_file:
-            #     json_file.write(json_str)
+                # 画线
+                cv2.polylines(image_info, [box], True, (0, 255, 255), 3)  # 面积最小的外接矩形框box
+                cv2.polylines(image_info, [approx], True, (255, 255, 0), 3)  # 近似四边形
+                cv2.polylines(image_info, [hull], True, (0, 255, 0), 3)  # 凸包
+            image_path = os.path.join("data/djz/test/debug/" + test_image_name)
+            cv2.imwrite(image_path, image_info)
+
+            prediction_path = os.path.join("data/djz/test/prediction/" + test_image_name[:-4] + ".json")
             with open(prediction_path, "w", encoding='utf-8') as g:
                 json.dump(prediction, g, indent=2, sort_keys=True, ensure_ascii=False)
-
         pass
 
     @staticmethod
-    def cut_approx_quadrang(i, masks):
+    def cut_approx_quadrang(i, masks, rois, image_info):
         '''
-        mask区域，找轮廓，求近似四边形,确定近似四边形的四点坐标
+        1、抠出外接矩形
+        2、mask区域，找轮廓，求近似四边形,确定近似四边形的四点坐标
         '''
+        ymin = rois[i][0]
+        xmin = rois[i][1]
+        ymax = rois[i][2]
+        xmax = rois[i][3]
+        w = xmax - xmin
+        h = ymax - ymin
+        cut_img = image_info[ymin:ymin+h,xmin:xmin+w]
+
         mask = masks[:, :, i]
         logger.info("mask shape:%r", mask.shape)
         binary = mask * 255
@@ -135,17 +157,15 @@ class MaskTest(object):
         # todo ：尝试下凸包
         # 寻找凸包并绘制凸包（轮廓）
         hull = cv2.convexHull(cnt)
-        #print("hull:", hull)
-        length = len(hull)
-        for i in range(len(hull)):
-            cv2.line(binary, tuple(hull[i][0]), tuple(hull[(i + 1) % length][0]), (0, 255, 0), 10)
-        cv2.imwrite("data/djz/test1.jpg", binary)
+        # length = len(hull)
+        # for i in range(len(hull)):
+        #     cv2.line(binary, tuple(hull[i][0]), tuple(hull[(i + 1) % length][0]), (0, 255, 0), 10)
+        # cv2.imwrite("data/djz/test1.jpg", binary)
 
+        # todo: 这边绿本第一个小框会出现一条直线，还需要调整
         epsilon = 0.05 * cv2.arcLength(cnt, True)
         approx = cv2.approxPolyDP(cnt, epsilon, True)
         #logger.info("近似四边形的四点坐标:%s", approx)
-
-        cv2.imwrite("data/djz/test2.jpg", binary)
 
         if len(approx) < 4:
             epsilon = 0.005 * cv2.arcLength(cnt, True)
@@ -156,10 +176,9 @@ class MaskTest(object):
             approx = cv2.approxPolyDP(cnt, epsilon, True)
             logger.info("多于四点调整后，近似四边形的四点坐标:%s", approx)
 
-        cv2.polylines(binary, [approx], True, (0, 255, 0), 10)
-        #cv2.imwrite("data/djz/test1.jpg", binary)
+        #cv2.polylines(binary, [approx], True, (0, 255, 0), 10)
 
-        return approx, hull
+        return approx, hull, cut_img
         pass
 
 
