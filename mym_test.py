@@ -10,6 +10,7 @@ from datetime import datetime
 import os
 import cv2
 import json
+import base64
 import numpy as np
 import logging
 from m_rcnn.mask_rcnn import MaskRCNN
@@ -134,6 +135,16 @@ class MaskTest(object):
             with open(prediction_path, "w", encoding='utf-8') as g:
                 json.dump(prediction, g, indent=2, sort_keys=True, ensure_ascii=False)
         pass
+
+    @staticmethod
+    def nparray2base64(img_data):
+        """
+            nparray格式的图片转为base64（cv2直接读出来的就是）
+        :param img_data:
+        :return:
+        """
+        _, d = cv2.imencode('.jpg', img_data)
+        return str(base64.b64encode(d), 'utf-8')
 
     @staticmethod
     def cut_approx_quadrang(i, masks, rois, image_info):
