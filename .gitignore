@@ -1,7 +1,6 @@
-.DS_Store
-models
 /models/
-/data/
-data/idcard
-data/idcard/test/
-/test/
+.idea
+*.pyc
+data/
+test/
+models/
