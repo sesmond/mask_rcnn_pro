@@ -42,7 +42,7 @@ class MaskTest(object):
         self.output_image_path = cfg.TEST.OUTPUT_IMAGE_PATH
         self.cut_image_path = cfg.TEST.CUT_IMAGE_PATH
         self.debug_image_path = cfg.TEST.DEBUG_IMAGE_PATH
-        self.prediction_image_path = cfg.TEST.PREDICTION_IMAGE_PATH
+        self.prediction_path = cfg.TEST.PREDICTION_PATH
 
         # 加载网络模型
         self.mask_model = MaskRCNN(train_flag=False)
@@ -104,7 +104,7 @@ class MaskTest(object):
                 point = self.format_convert(hull)
 
                 class_points = {
-                    "labels": CLASS_NAME[class_ids[i] - 1],
+                    "label": CLASS_NAME[class_ids[i] - 1],
                     "points": point,
                     "group_id": " ",
                     "shape_type": "polygon",
@@ -131,8 +131,8 @@ class MaskTest(object):
             image_path = os.path.join(self.debug_image_path + test_image_name)
             cv2.imwrite(image_path, image_info)
 
-            prediction_path = os.path.join(self.prediction_image_path + test_image_name[:-4] + ".json")
-            with open(prediction_path, "w", encoding='utf-8') as g:
+            prediction_json_path = os.path.join(self.prediction_path + test_image_name[:-4] + ".json")
+            with open(prediction_json_path, "w", encoding='utf-8') as g:
                 json.dump(prediction, g, indent=2, sort_keys=True, ensure_ascii=False)
         pass
 
