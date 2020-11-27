@@ -1,4 +1,2 @@
 BG
-djz-1-1
-djz-1-2
-djz-2
+stamp
