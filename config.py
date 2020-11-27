@@ -227,9 +227,9 @@ __C.TRAIN.GRADIENT_CLIP_NORM = 5.0
 # n_epoch for rough train
 __C.TRAIN.FIRST_STAGE_N_EPOCH = 4#32
 # n_epoch for convergence loss
-__C.TRAIN.MIDDLE_STAGE_N_EPOCH = 16#128
+__C.TRAIN.MIDDLE_STAGE_N_EPOCH = 6#128
 # n_epoch for fine-tuning
-__C.TRAIN.LAST_STAGE_N_EPOCH = 32#256
+__C.TRAIN.LAST_STAGE_N_EPOCH = 8#256
 
 # Training network heads
 __C.TRAIN.HEADS_LAYERS = "heads"
