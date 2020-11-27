@@ -24,6 +24,9 @@ from m_rcnn.coco_dataset import CocoDataset
 from config import cfg
 
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+logger = logging.getLogger("Mask-Train")
+
 class MaskTrain(object):
 
     def __init__(self):
