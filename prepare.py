@@ -57,7 +57,7 @@ class Prepare(object):
         # 测试集比例
         self.test_percent = 0.0
         # 验证集比例
-        self.val_percent = 0.2
+        self.val_percent = 0.1
 
         # 各成分数据保存路径
         # 输出文件
