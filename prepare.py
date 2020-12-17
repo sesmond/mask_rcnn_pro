@@ -276,25 +276,27 @@ class Prepare(object):
             annotation = {}
 
             label = shape_info["label"]
-            # label = "table"
-            points = shape_info["points"]
-            # TODO
-            category_id = self.class_name_list.index(label)
+            print("label:", label)
+            if label in self.class_name_list:
+                # label = "table"
+                points = shape_info["points"]
+                # TODO
+                category_id = self.class_name_list.index(label)
 
-            annotation.update({"id": self.ann_id})
-            # TODO
-            annotation.update({"image_id": str(name_info)})
-            annotation.update({"category_id": category_id})
-            segmentation = [np.asarray(points).flatten().tolist()]
-            annotation.update({"segmentation": segmentation})
-            bbox = self.bounding_box_info(points)
-            annotation.update({"bbox": bbox})
-            annotation.update({"iscrowd": 0})
-            area = annotation['bbox'][-1] * annotation['bbox'][-2]
-            annotation.update({"area": area})
+                annotation.update({"id": self.ann_id})
+                # TODO
+                annotation.update({"image_id": str(name_info)})
+                annotation.update({"category_id": category_id})
+                segmentation = [np.asarray(points).flatten().tolist()]
+                annotation.update({"segmentation": segmentation})
+                bbox = self.bounding_box_info(points)
+                annotation.update({"bbox": bbox})
+                annotation.update({"iscrowd": 0})
+                area = annotation['bbox'][-1] * annotation['bbox'][-2]
+                annotation.update({"area": area})
 
-            self.annotations.append(annotation)
-            self.ann_id += 1
+                self.annotations.append(annotation)
+                self.ann_id += 1
         pass
 
     def bounding_box_info(self, points):
