@@ -226,11 +226,11 @@ __C.TRAIN.LEARNING_MOMENTUM = 0.9
 __C.TRAIN.GRADIENT_CLIP_NORM = 5.0
 
 # n_epoch for rough train
-__C.TRAIN.FIRST_STAGE_N_EPOCH = 4#32
+__C.TRAIN.FIRST_STAGE_N_EPOCH = 32
 # n_epoch for convergence loss
-__C.TRAIN.MIDDLE_STAGE_N_EPOCH = 6#128
+__C.TRAIN.MIDDLE_STAGE_N_EPOCH = 128
 # n_epoch for fine-tuning
-__C.TRAIN.LAST_STAGE_N_EPOCH = 8#256
+__C.TRAIN.LAST_STAGE_N_EPOCH = 256
 
 # Training network heads
 __C.TRAIN.HEADS_LAYERS = "heads"
@@ -298,7 +298,7 @@ __C.TRAIN.ANCHORS_PER_IMAGE = 256
 __C.TEST = edict()
 
 # model 文件路径(121\178)
-__C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/summary/mask_rcnn_coco_0096.h5")
+__C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/summary/mask_rcnn_coco_0008.h5")
 __C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/summary/")
 __C.TEST.TEST_INFO_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/test.txt")
 

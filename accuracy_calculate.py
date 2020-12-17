@@ -82,19 +82,19 @@ def calculate_acc(test_path, original_path, prediction_path):
                 total +=1
                 for prediction_bbox in prediction_bboxes:
                     IOU = calculate_iou(img, original_bbox, prediction_bbox)
-                    if IOU >= 0.95:
+                    if IOU >= 0.90:
                         correct +=1
                     accuracy = correct/total
 
         print("预测的总的区域个数:", total)
-        print("预测区域和打标区域的面积iou>=0.95的区域个数:",correct)
+        print("预测区域和打标区域的面积iou>=0.90的区域个数:",correct)
         print("预测的正确率:",accuracy)
 
 
 
 if __name__ == "__main__":
-    test_path = "data/djz/test/input/"
-    original_path = "data/djz/test/original/"
-    prediction_path = "data/djz/test/prediction/"
+    test_path = "data/summary/test/input/"
+    original_path = "data/summary/test/original/"
+    prediction_path = "data/summary/test/prediction/"
 
     calculate_acc(test_path, original_path, prediction_path)

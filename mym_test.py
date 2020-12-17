@@ -126,8 +126,8 @@ class MaskTest(object):
 
                 # 画线
                 cv2.polylines(image_info, [box], True, (0, 255, 255), 3)  # 面积最小的外接矩形框box
-                cv2.polylines(image_info, [approx], True, (255, 255, 0), 3)  # 近似四边形
-                cv2.polylines(image_info, [hull], True, (0, 255, 0), 3)  # 凸包
+                #cv2.polylines(image_info, [approx], True, (255, 255, 0), 3)  # 近似四边形
+                #cv2.polylines(image_info, [hull], True, (0, 255, 0), 3)  # 凸包
             image_path = os.path.join(self.debug_image_path + test_image_name)
             cv2.imwrite(image_path, image_info)
 
