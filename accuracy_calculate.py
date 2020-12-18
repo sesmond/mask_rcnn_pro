@@ -94,7 +94,7 @@ def calculate_acc(test_path, original_path, prediction_path):
 
 if __name__ == "__main__":
     test_path = "data/summary/test/input/"
-    original_path = "data/summary/test/original/"
-    prediction_path = "data/summary/test/prediction/"
+    original_path = "data/summary/test/jsz/original/"
+    prediction_path = "data/summary/test/jsz/prediction/"
 
     calculate_acc(test_path, original_path, prediction_path)

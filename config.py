@@ -302,11 +302,11 @@ __C.TEST.COCO_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/summar
 __C.TEST.SAVE_MODEL_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "models/summary/")
 __C.TEST.TEST_INFO_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "infos/test.txt")
 
-__C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/summary/test/input")
-__C.TEST.OUTPUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/summary/test/output")
-__C.TEST.CUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/summary/test/cut")
-__C.TEST.DEBUG_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/summary/test/debug/")
-__C.TEST.PREDICTION_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/summary/test/prediction/")
+__C.TEST.TEST_IMAGE_FILE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/summary/test/jsz/input")
+__C.TEST.OUTPUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/summary/test/jsz/output")
+__C.TEST.CUT_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/summary/test/jsz/cut")
+__C.TEST.DEBUG_IMAGE_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/summary/test/jsz/debug/")
+__C.TEST.PREDICTION_PATH = os.path.join(__C.COMMON.RELATIVE_PATH, "data/summary/test/jsz/prediction/")
 
 __C.TEST.POST_NMS_ROIS = 1000
 
