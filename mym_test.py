@@ -106,7 +106,8 @@ class MaskTest(object):
                 rect = cv2.minAreaRect(np.array(hull))  # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
                 box = cv2.boxPoints(rect)  # 获取最小外接矩形的4个顶点坐标(ps: cv2.boxPoints(rect) for OpenCV 3.x)
                 box = np.int0(box)
-                point = self.format_convert(box)
+                #point = self.format_convert(hull)
+
                 # 画线
                 cv2.polylines(image_info, [box], True, (0, 255, 255), 3)  # 面积最小的外接矩形框box
                 # cv2.polylines(image_info, [approx], True, (255, 255, 0), 3)  # 近似四边形
@@ -119,7 +120,7 @@ class MaskTest(object):
                     "label": CLASS_NAME[class_ids[i] - 1],
                     "scores": confidence,
                     "rois": _rois,
-                    "points": point,
+                    "points": box.tolist(),
                     "group_id": " ",
                     "shape_type": "polygon",
                     "flags": {}
