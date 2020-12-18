@@ -94,6 +94,7 @@ class MaskTest(object):
 
             rois = results_info_list[0]['rois']
             class_ids = results_info_list[0]['class_ids']
+            scores = results_info_list[0]['scores']
             masks = results_info_list[0]['masks']
             mask_cnt = masks.shape[-1]
             CLASS_NAME = self.class_names_list[1:]
@@ -101,10 +102,23 @@ class MaskTest(object):
             result = []
             for i in range(mask_cnt):
                 approx, hull, cut_img = self.cut_approx_quadrang(i, masks, rois, image_info)
-                point = self.format_convert(hull)
+
+                rect = cv2.minAreaRect(np.array(hull))  # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
+                box = cv2.boxPoints(rect)  # 获取最小外接矩形的4个顶点坐标(ps: cv2.boxPoints(rect) for OpenCV 3.x)
+                box = np.int0(box)
+                point = self.format_convert(box)
+                # 画线
+                cv2.polylines(image_info, [box], True, (0, 255, 255), 3)  # 面积最小的外接矩形框box
+                # cv2.polylines(image_info, [approx], True, (255, 255, 0), 3)  # 近似四边形
+                # cv2.polylines(image_info, [hull], True, (0, 255, 0), 3)  # 凸包
+
+                confidence = np.float(scores[i])
+                _rois = rois[i].tolist()
 
                 class_points = {
                     "label": CLASS_NAME[class_ids[i] - 1],
+                    "scores": confidence,
+                    "rois": _rois,
                     "points": point,
                     "group_id": " ",
                     "shape_type": "polygon",
@@ -120,14 +134,6 @@ class MaskTest(object):
                               "imageWidth": w
                               }
 
-                rect = cv2.minAreaRect(np.array(hull))  # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
-                box = cv2.boxPoints(rect)  # 获取最小外接矩形的4个顶点坐标(ps: cv2.boxPoints(rect) for OpenCV 3.x)
-                box = np.int0(box)
-
-                # 画线
-                cv2.polylines(image_info, [box], True, (0, 255, 255), 3)  # 面积最小的外接矩形框box
-                #cv2.polylines(image_info, [approx], True, (255, 255, 0), 3)  # 近似四边形
-                #cv2.polylines(image_info, [hull], True, (0, 255, 0), 3)  # 凸包
             image_path = os.path.join(self.debug_image_path + test_image_name)
             cv2.imwrite(image_path, image_info)
 
