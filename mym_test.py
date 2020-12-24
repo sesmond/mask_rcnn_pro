@@ -16,7 +16,7 @@ import logging
 from m_rcnn.mask_rcnn import MaskRCNN
 from config import cfg
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 logger = logging.getLogger("登记证图片识别 -- maskrcnn预测")
