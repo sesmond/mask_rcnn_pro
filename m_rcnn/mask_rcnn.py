@@ -781,16 +781,16 @@ class MaskRCNN(object):
         exclude_ix = np.where(
             (boxes[:, 2] - boxes[:, 0]) * (boxes[:, 3] - boxes[:, 1]) <= 0)[0]
 
-        # todo: 第一步，先过滤掉多预测出来的非目标的小框，这样的小框置信度比较低
-        low_confidence = np.argwhere(scores < 0.70)
-        if len(low_confidence) > 0:
-            boxes = np.delete(boxes, low_confidence[0], axis=0)
-            class_ids = np.delete(class_ids, low_confidence[0], axis=0)
-            scores = np.delete(scores, low_confidence[0], axis=0)
-            masks = np.delete(masks, low_confidence[0], axis=0)
-
-        # todo: 第二步，过滤同一个区域中预测出多个类别中置信度低的
-        boxes, class_ids, scores, masks = self.filter_box(boxes, class_ids, scores, masks)
+        # # todo: 第一步，先过滤掉多预测出来的非目标的小框，这样的小框置信度比较低
+        # low_confidence = np.argwhere(scores < 0.70)
+        # if len(low_confidence) > 0:
+        #     boxes = np.delete(boxes, low_confidence[0], axis=0)
+        #     class_ids = np.delete(class_ids, low_confidence[0], axis=0)
+        #     scores = np.delete(scores, low_confidence[0], axis=0)
+        #     masks = np.delete(masks, low_confidence[0], axis=0)
+        #
+        # # todo: 第二步，过滤同一个区域中预测出多个类别中置信度低的
+        # boxes, class_ids, scores, masks = self.filter_box(boxes, class_ids, scores, masks)
 
         if exclude_ix.shape[0] > 0:
             boxes = np.delete(boxes, exclude_ix, axis=0)
