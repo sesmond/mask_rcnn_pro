@@ -798,8 +798,8 @@ class MaskRCNN(object):
             scores = np.delete(scores, exclude_ix, axis=0)
             masks = np.delete(masks, exclude_ix, axis=0)
 
-        n = class_ids.shape[0]
-        print("类别:",n)
+            n = class_ids.shape[0]
+            print("类别:",n)
 
         # Resize masks to original image size and set boundary threshold.
         full_masks = []
