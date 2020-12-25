@@ -683,15 +683,20 @@ class MaskRCNN(object):
         '''
 
         length = len(final_rois)
+        j_list = []
         for i in range(0, length):
             for j in range(i + 1, length):
                 iou = self.calculate_IoU(final_rois[i], final_rois[j])
                 if iou >= 0.5:
                     if final_scores[i] > final_scores[j]:
-                        final_rois = np.delete(final_rois, j, axis=0)
-                        final_class_ids = np.delete(final_class_ids, j, axis=0)
-                        final_scores = np.delete(final_scores, j, axis=0)
-                        final_masks = np.delete(final_masks, j, axis=0)
+                        j_list.append(j)
+
+        if len(j_list) > 0:
+            for jj in j_list:
+                final_rois = np.delete(final_rois, jj, axis=0)
+                final_class_ids = np.delete(final_class_ids, jj, axis=0)
+                final_scores = np.delete(final_scores, jj, axis=0)
+                final_masks = np.delete(final_masks, jj, axis=0)
 
         return final_rois, final_class_ids, final_scores, final_masks
 
@@ -798,8 +803,8 @@ class MaskRCNN(object):
             scores = np.delete(scores, exclude_ix, axis=0)
             masks = np.delete(masks, exclude_ix, axis=0)
 
-            n = class_ids.shape[0]
-            print("类别:",n)
+        n = class_ids.shape[0]
+        print("类别:",n)
 
         # Resize masks to original image size and set boundary threshold.
         full_masks = []
